@@ -11,7 +11,8 @@ class User extends Component {
         user: {}
     };
     componentDidMount() {
-        axios
+        if(localStorage.getItem("token")!==null){
+            axios
             .get("/home")
             .then((response)=>{
                 this.setState({user: response.data});
@@ -20,6 +21,7 @@ class User extends Component {
             .catch(error => {
                 console.log(error);
             });
+        }
     }
     render() {
         return (

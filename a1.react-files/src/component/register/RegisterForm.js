@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import axios from "../../Axios";
+
 import "./register.css";
 
 function Register() {
@@ -8,6 +10,24 @@ function Register() {
     const [passwordState, setPasswordState] = useState("");
     const [confirmPasswordState, setConfirmPasswordState] = useState("");
     
+    const registerHandaler = () => {
+        axios({
+            method: 'post',
+            url: '/register',
+            data: {
+                name: nameState,
+                email: emailState,
+                password: passwordState,
+                password_confirmation: confirmPasswordState
+            }
+          }).then(response => {
+                localStorage.setItem('token', response.data.token);
+                console.log(response.data)
+          }).catch((error)=>{
+            console.log(error);
+          });
+        
+    }
 
     return (
         <React.Fragment>
@@ -53,7 +73,7 @@ function Register() {
                         onChange={event => {setConfirmPasswordState(event.target.value)}}
                     />
                 </Form.Group>
-                <Button variant="primary">
+                <Button variant="primary" onClick={registerHandaler}>
                     Register
                 </Button>
             </Form>

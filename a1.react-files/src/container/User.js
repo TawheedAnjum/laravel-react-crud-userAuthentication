@@ -3,27 +3,33 @@ import { Switch, Route } from "react-router-dom";
 
 import LoginForm from "../component/login/LoginForm";
 import RegisterForm from "../component/register/RegisterForm";
+import ForgotPassword from "../component/forgotPass/ForgotPassword";
+import ResetPassword from "../component/resetpassword/Reset";
 import Home from "../component/home/Home";
 import axios from "../Axios";
 
 class User extends Component {
     state = {
-        user: {}
+        user: {},
+        sentMail: false,
     };
     componentDidMount() {
-        if(localStorage.getItem("token")!==null){
-            axios
+        axios
             .get("/home")
-            .then((response)=>{
-                this.setState({user: response.data});
+            .then((response) => {
+                this.setState({ user: response.data });
                 console.log(this.state.user);
             })
-            .catch(error => {
+            .catch((error) => {
                 console.log(error);
             });
-        }
     }
+
     render() {
+
+        // const sentDoneHandeler = () => {
+        //     this.setState({sentMail: true});
+        // }
         return (
             <React.Fragment>
                 <Switch>
@@ -34,6 +40,10 @@ class User extends Component {
                         <LoginForm />
                     </Route>
                     <Route path="/register" component={RegisterForm} />
+                    <Route path="/Forgot-password">
+                        <ForgotPassword  sentMail={this.state.sentMail}  sendingDone={this.sentDoneHandeler}/>
+                    </Route>
+                    <Route path="/reset-password/:email/:token" component={ResetPassword} />
                 </Switch>
             </React.Fragment>
         );

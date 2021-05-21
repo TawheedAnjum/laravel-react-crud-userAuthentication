@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "../../Axios";
+import {useHistory} from "react-router-dom";
 
 import "./register.css";
 
@@ -10,6 +11,8 @@ function Register() {
     const [passwordState, setPasswordState] = useState("");
     const [confirmPasswordState, setConfirmPasswordState] = useState("");
     
+    let history = useHistory();
+
     const registerHandaler = () => {
         axios({
             method: 'post',
@@ -23,6 +26,12 @@ function Register() {
           }).then(response => {
                 localStorage.setItem('token', response.data.token);
                 console.log(response.data)
+          }).then(() => {
+            if (localStorage.getItem('token') !== 'undefined') {
+                history.push('/')
+            } else {
+                console.log(`something wrong`);
+            }
           }).catch((error)=>{
             console.log(error);
           });

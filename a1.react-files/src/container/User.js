@@ -5,6 +5,7 @@ import LoginForm from "../component/login/LoginForm";
 import RegisterForm from "../component/register/RegisterForm";
 import ForgotPassword from "../component/forgotPass/ForgotPassword";
 import ResetPassword from "../component/resetpassword/Reset";
+import ProductAction from "../component/products/productAction/ProductAction";
 import Home from "../component/home/Home";
 import axios from "../Axios";
 
@@ -12,6 +13,7 @@ class User extends Component {
     state = {
         user: {},
         sentMail: false,
+        productFromShow: false,
     };
     componentDidMount() {
         axios
@@ -27,9 +29,9 @@ class User extends Component {
 
     render() {
 
-        // const sentDoneHandeler = () => {
-        //     this.setState({sentMail: true});
-        // }
+        const editBtnHandler = () => {
+            this.setState({productFromShow: true});
+        }
         return (
             <React.Fragment>
                 <Switch>
@@ -44,6 +46,9 @@ class User extends Component {
                         <ForgotPassword  sentMail={this.state.sentMail}  sendingDone={this.sentDoneHandeler}/>
                     </Route>
                     <Route path="/reset-password/:email/:token" component={ResetPassword} />
+                    <Route path="/home">
+                        <ProductAction formShow={this.state.productFromShow} editBtnHandler={editBtnHandler}/>
+                    </Route>
                 </Switch>
             </React.Fragment>
         );

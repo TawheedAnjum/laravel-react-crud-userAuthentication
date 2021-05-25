@@ -21,7 +21,7 @@ Route::get('/products', [ProductController::class, 'index']);
 Route::post('/products', [ProductController::class, 'store']);
 Route::post('/products/edit/{id}', [ProductController::class, 'edit']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
-Route::get('/products/delete/{id}', [ProductController::class, 'distroy']);
+Route::delete('/products/delete/{id}', [ProductController::class, 'distroy']);
 
 
 

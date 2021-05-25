@@ -2,15 +2,8 @@ import React from "react";
 import { Table, Button } from "react-bootstrap";
 
 import "./productAction.css";
-import InputAction from "../inputAction/InputAction";
 
 function ProductAction(props) {
-    let inputShow = null;
-
-    if (props.formShow) {
-        inputShow = <InputAction />;
-    }
-
     const deleleteProductHandler = (id) => {
         props.newData(id);
     }
@@ -47,7 +40,6 @@ function ProductAction(props) {
                 <tbody>{allProducts}</tbody>
             </Table>
 
-            {inputShow}
         </React.Fragment>
     );
 }

@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { Form, Button, Modal } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 
-function InputAction() {
-    const [show, setShow] = useState(false);
+function InputAction(props) {
+    const [productName, setProductName] = useState('');
+    const [price, setPrice] = useState('');
+    const [quantity, setQuantity] = useState('');
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const submitHandeler = () => {
+        props.addNewProduct(productName, price, quantity)
+    }
 
     return (
         <div className="row justify-content-center bg-light shadow-sm mt-5 mx-4">
@@ -13,16 +16,16 @@ function InputAction() {
                 <Form>
                     <Form.Group controlId="formGroupExampleInput">
                         <Form.Label>Product Name</Form.Label>
-                        <Form.Control type="text" />
+                        <Form.Control type="text" value={productName}  onChange={event => {setProductName(event.target.value)}} />
                     </Form.Group>
 
                     <Form.Group controlId="formGroupExampleInput2">
                         <Form.Label>Product Price</Form.Label>
-                        <Form.Control type="numberr" />
+                        <Form.Control type="number" value={price} onChange={event => {setPrice(event.target.value)}} />
                     </Form.Group>
                     <Form.Group controlId="formGroupExampleInput3">
                         <Form.Label>Quantity</Form.Label>
-                        <Form.Control type="number" />
+                        <Form.Control type="number" value={quantity} onChange={event => {setQuantity(event.target.value)}} />
                     </Form.Group>
                     
                 </Form>
@@ -30,28 +33,12 @@ function InputAction() {
                     variant="primary"
                     type="submit"
                     className="btn-block"
-                    onClick={handleShow}
+                    onClick={submitHandeler}
                 >
                     Submit
                 </Button>
 
-                {/* Model */}
-                <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Confirmation</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        Do you want to comfirm
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
-                            Close
-                        </Button>
-                        <Button variant="primary" onClick={handleClose}>
-                            Comfirm
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
+              
             </div>
         </div>
     );

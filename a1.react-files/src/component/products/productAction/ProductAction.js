@@ -8,6 +8,10 @@ function ProductAction(props) {
         props.newData(id);
     }
 
+    const editProduct = (id) => {
+        props.editBtnHandler(id);
+    }
+
     const allProducts = props.products.map((p) => {
         return (
             <tr key={p.product_id}>
@@ -16,7 +20,7 @@ function ProductAction(props) {
                 <td>${p.price}</td>
                 <td>{p.quantity}</td>
                 <td>
-                    <Button variant="primary" onClick={props.editBtnHandler}>Edit</Button>{" "}
+                    <Button variant="primary" onClick={() => editProduct(p.product_id)}>Edit</Button>{" "}
                     <Button variant="danger" onClick={() => deleleteProductHandler(p.product_id)}>
                         Delete
                     </Button>{" "}
